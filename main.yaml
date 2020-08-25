@@ -1,0 +1,25 @@
+# Manual steps for installing the apache in ubuntu.
+# sudo apt-get update 
+# sudo apt-get install apache2 -y
+# sudo systemctl enable apache2
+
+
+---
+- name: Playbook to install apache
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: running the update cache
+      apt:
+        update_cache: yes
+        state: present
+    - name: installing the apache2 
+      apt:
+        name: apache2
+        state: present
+    - name: enable and restart apache2
+      service:
+        name: apache2
+        state: restarted
+        enabled: yes    
+...
